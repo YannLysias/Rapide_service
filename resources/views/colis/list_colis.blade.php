@@ -29,10 +29,10 @@
 									<div class="card-header d-flex justify-content-between align-items-center">
 										<div class="card-title">Colis</div>
 
-                                         <div class="d-flex align-items-center">
+                                         {{-- <div class="d-flex align-items-center">
                                             <input type="text" id="searchNumControl" class="form-control me-2" placeholder="Numéro de colis" style="width: 250px;">
                                             <button id="btnSearchTransfert" class="btn btn-success">Rechercher</button>
-                                        </div>
+                                        </div> --}}
 
 										 <a href="/colis/list_colis/create" class="btn btn-primary">
                                             Envoyer un colis

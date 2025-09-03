@@ -16,12 +16,12 @@
                 @include('layouts.sidbar')
 				<div class="content">
 					<div class="container-fluid">
-						<h4 class="page-title">Forms</h4>
+						<h4 class="page-title">Formulaire de dépôt de coli</h4>
 						<div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header text-white">
-                                    <h4 class="card-title mb-0">Formulaire de dépôt de colis</h4>
+                                    <h4 class="card-title mb-0">Formulaire</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="/colis/list_colis" method="POST" id="form-colis">
