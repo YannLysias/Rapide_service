@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\AgenceTransfert;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $users = User::where('role', 'Secretaire')->get();
+        return view('user.user', [
+            "users" => $users,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+
+    public function create()
+    {
+        $agences = AgenceTransfert::all();
+        return view('user.forms_user', [
+            'agences' => $agences,
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'sexe' => 'required|string',
+        'telephone' => 'required|string',
+        'email' => 'required|email|unique:users,email',
+        'role' => 'required|string',
+        'adresse' => 'required|string',
+        'profession' => 'required|string',
+        'agences_transfert_id' => 'required|exists:agences_transfert,id',
+    ]);
+
+    $agence = AgenceTransfert::findOrFail(intval($request->agences_transfert_id));
+
+    $user = User::create([
+        'name' => $request->name,
+        'prenom' => $request->prenom,
+        'sexe' => $request->sexe,
+        'telephone' => $request->telephone,
+        'email' => $request->email,
+        'password' => bcrypt('default123'),
+        'role' => $request->role,
+        'adresse' => $request->adresse,
+        'profession' => $request->profession,
+        'agences_transfert_id' => $agence->id,
+        'statut' => true,
+    ]);
+
+    $user->agences()->attach($agence->id);
+
+        return redirect('user/user')->with('success', 'Utilisateur ajouté avec succès.');
+
+}
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $user = User::with('agences')->findOrFail($id);
+        return view('user.edit_user', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

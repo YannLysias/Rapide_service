@@ -1,0 +1,198 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\AgenceTransfert;
+use App\Models\Colis;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Support\Facades\Validator;
+
+class ColisController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $colis = Colis::all();
+        return view('colis.list_colis', [
+            "colis" => $colis,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $clients = User::where('role', 'client')->get();
+        $agences = AgenceTransfert::all();
+
+        return view('colis.forms_colis', compact('clients', 'agences'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // $inspections = Validator::make($request->all(), [
+        //     'client_id' => 'required|exists:users,id',
+        //     'agence_transfert_id' => 'required|exists:agences_transfert,id',
+        //     'poid' => 'required|numeric|min:0.1',
+        //     'type' => 'required|string|max:255',
+        //     'destinateur_nom' => 'required|string|max:255',
+        //     'destinateur_prenom' => 'required|string|max:255',
+        //     'destinateur_email' => 'required|string|max:255',
+        //     'destinateur_telephone' => 'required|string|max:255',
+        // ]);
+        // if($inspections->fails()){
+        //     dd($inspections->errors());
+        // }
+        $request->validate([
+            'client_id' => 'required|exists:users,id',
+            'agence_transfert_id' => 'required|exists:agences_transfert,id',
+            'poid' => 'required|numeric|min:0.1',
+            'type' => 'required|string|max:255',
+            // 'statut' => 'required|in:en_attente,en_cours,livré',
+            'destinateur_nom' => 'required|string|max:255',
+            'destinateur_prenom' => 'required|string|max:255',
+            'destinateur_email' => 'required|string|max:255',
+            'destinateur_telephone' => 'required|string|max:255',
+            'paiement' => 'required|in:payé,non_payé',
+        ]);
+
+        // 1. Génération de l’ID personnalisé du colis
+        $lastId = Colis::max('id') + 1; // par sécurité, on récupère le max
+        $currentYear = now()->format('y'); // ex: 25 pour 2025
+        $codeColis = 'FIH' . str_pad($lastId, 5, '0', STR_PAD_LEFT) . $currentYear;
+
+        // 2. Calcul automatique du montant
+        $montant = $request->poid * 9;
+
+
+        $path_photo_convert_to_table = null;
+        if ($request->hasFile('photo')) {
+            $path_photo = $request->file('photo')->store('public/photos');
+
+            $path_photo_convert_to_table = explode('/', $path_photo);
+
+            $photo_name = isset($path_photo_convert_to_table[2]) ? $path_photo_convert_to_table[2] : null;
+
+        }
+
+        $colis = Colis::create([
+            'user_id' => Auth::id(),
+            'client_id' =>  $request->client_id,
+            'agence_transfert_id' => $request->agence_transfert_id,
+            'poid' => $request->poid,
+            'type' => $request->type,
+            'statut' => 'en_attente',
+            'montant' => $montant,
+            'paiement' => $request->paiement,
+            'destinateur_nom' => $request->destinateur_nom,
+            'destinateur_prenom' => $request->destinateur_prenom,
+            'destinateur_email' => $request->destinateur_email,
+            'destinateur_telephone' => $request->destinateur_telephone,
+            'code_colis' => $codeColis,
+            'photo' => $photo_name ?? null
+        ]);
+
+
+        return redirect('colis/list_colis')->with('success', 'Colis ajouté avec succès.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $colis = Colis::with('agenceTransfert', 'user')->findOrFail($id);
+        return view('colis.edit_colis', compact('colis'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+
+        // $request->validate([
+        //     'client_id' => 'required|exists:users,id',
+        //     'agence_transfert_id' => 'required|exists:agences_transfert,id',
+        //     'poid' => 'required|numeric|min:0.1',
+        //     'type' => 'required|string|max:255',
+        //     'statut' => 'required|in:en_attente,en_cours,livré',
+        //     'destinateur_nom' => 'required|string|max:255',
+        //     'destinateur_prenom' => 'required|string|max:255',
+        //     'destinateur_email' => 'required|string|max:255',
+        //     'destinateur_telephone' => 'required|string|max:255',
+        //     'paiement' => 'required|in:payé,non_payé',
+        // ]);
+
+
+        $colis = Colis::findOrFail($id);
+
+        $colis->update([
+
+            // 'user_id' => Auth::id(),
+            // 'client_id' =>  $request->client_id,
+            // 'agence_transfert_id' => $request->agence_transfert_id,
+            'poid' => $request->poid,
+            'type' => $request->type,
+            'statut' => $request->statut,
+            'paiement' => $request->paiement,
+            'destinateur_nom' => $request->destinateur_nom,
+            'destinateur_prenom' => $request->destinateur_prenom,
+            'destinateur_email' => $request->destinateur_email,
+            'destinateur_telephone' => $request->destinateur_telephone,
+            'montant' => $request->poid * 3000, // recalcul automatique
+        ]);
+        return redirect('colis/list_colis')->with('success', 'Colis modifié avec succès.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function imprimer($id)
+    {
+        $colis = Colis::with('client', 'user', 'AgenceTransfert')->findOrFail($id);
+        return view('colis.imprimer', compact('colis')); // Crée une vue propre à l'impression
+    }
+
+    public function search(Request $request)
+    {
+        $code = $request->query('code_colis');
+
+         $colis = Colis::where('code_colis', $code)->first();
+
+        if ($colis) {
+            return response()->json([
+                'success' => true,
+                'transfert' => $colis,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Aucun transfert trouvé',
+            ]);
+        }
+    }
+}
