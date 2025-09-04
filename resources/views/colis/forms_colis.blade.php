@@ -88,7 +88,7 @@
 
                                                 <div class="form-group">
                                                     <label>Type de colis</label>
-                                                    <input type="text" name="type" class="form-control" placeholder="ex: Document, Marchandise..." required>
+                                                    <input type="text" name="type" class="form-control" placeholder="ex: Document, Marchandise...">
                                                     @error('type')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror

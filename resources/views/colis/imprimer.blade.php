@@ -67,7 +67,7 @@
         <div class="label">Type : {{ $colis->type }}</div>
     </div>
     <div class="info-pair">
-        <div class="label">Montant : {{ number_format($colis->montant, 0, ',', ' ') }} FCFA</div>
+        <div class="label">Montant : {{ number_format($colis->montant, 0, ',', ' ') }} $</div>
         <div class="label">Paiement : {{ ucfirst($colis->paiement) }}</div>
     </div>
     <div class="info-pair">

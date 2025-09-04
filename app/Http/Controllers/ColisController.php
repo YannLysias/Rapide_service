@@ -158,7 +158,7 @@ class ColisController extends Controller
             'destinateur_prenom' => $request->destinateur_prenom,
             'destinateur_email' => $request->destinateur_email,
             'destinateur_telephone' => $request->destinateur_telephone,
-            'montant' => $request->poid * 3000, // recalcul automatique
+            'montant' => $request->poid * 9, // recalcul automatique
         ]);
         return redirect('colis/list_colis')->with('success', 'Colis modifié avec succès.');
     }
