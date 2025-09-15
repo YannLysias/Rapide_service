@@ -131,8 +131,13 @@
                                             <!-- Statut -->
                                             <div class="col-md-6">
                                                 <label class="form-label">Agence</label>
-                                                <select class="form-control" name="statut">
-
+                                                <select name="agence_transfert_id" class="form-control" required>
+                                                    <option value="" disabled selected>-- Choisir une agence --</option>
+                                                    @foreach ($user->agences as $agence)
+                                                    <option value="{{ $agence->id }}" @selected($user->agence_transfert_id == $agence->id)>
+                                                        {{ $agence->nom }} ({{ $agence->pays }})
+                                                    </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
 

@@ -67,7 +67,7 @@
 
                                                 <div class="form-group">
                                                     <label>Poids (Kg) <span style="color:red">*</span></label>
-                                                    <input type="number" step="0.01" name="poid" id="poid" class="form-control" oninput="calculerMontant()" required>
+                                                    <input type="number" step="0.01" name="poid" value="{{ old('poid') }}" id="poid" class="form-control" oninput="calculerMontant()" required>
                                                     @error('poid')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
@@ -88,7 +88,7 @@
 
                                                 <div class="form-group">
                                                     <label>Type de colis</label>
-                                                    <input type="text" name="type" class="form-control" placeholder="ex: Document, Marchandise...">
+                                                    <input type="text" name="type" class="form-control" value="{{ old('type') }}" placeholder="ex: Document, Marchandise...">
                                                     @error('type')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
@@ -96,14 +96,14 @@
 
                                                 <div class="form-group">
                                                     <label>Nom <span style="color:red">*</span></label>
-                                                    <input type="text" name="destinateur_nom" class="form-control" required>
+                                                    <input type="text" name="destinateur_nom" class="form-control" value="{{ old('destinateur_nom') }}" required>
                                                     @error('destinateur_nom')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
                                                 </div>
                                                     <div class="form-group">
                                                     <label>Prénom <span style="color:red">*</span></label>
-                                                    <input type="text" name="destinateur_prenom" class="form-control" required>
+                                                    <input type="text" name="destinateur_prenom" class="form-control" value="{{ old('destinateur_prenom') }}" required>
                                                     @error('destinateur_prenom')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
@@ -111,7 +111,7 @@
 
                                                 <div class="form-group">
                                                     <label>Téléphone <span style="color:red">*</span></label>
-                                                    <input type="text" name="destinateur_telephone" class="form-control" required>
+                                                    <input type="text" name="destinateur_telephone" class="form-control" value="{{ old('destinateur_telephone') }}" required>
                                                     @error('destinateur_telephone')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
@@ -119,7 +119,7 @@
 
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" name="destinateur_email" class="form-control">
+                                                    <input type="email" name="destinateur_email" class="form-control" value="{{ old('destinateur_email') }}">
                                                     @error('destinateur_email')
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
@@ -127,7 +127,7 @@
                                                 <div class="form-group">
                                                     <label>Photo du colis</label>
                                                     <input type="file" name="photo_colis" id="photo_colis" class="form-control"
-                                                        accept="image/*" capture="environment" onchange="previewPhoto(event)" required>
+                                                        accept="image/*" capture="environment" onchange="previewPhoto(event)" value="{{ old('photo_colis') }}">
 
                                                     <!-- Zone d’aperçu -->
                                                     <div class="mt-2">
@@ -143,7 +143,8 @@
                                         </div>
 
                                         <div class="mt-4 text-end">
-                                            <button type="submit" class="btn btn-primary">Valider le dépôt</button>
+                                            <button type="submit" class="btn btn-success">Valider le dépôt</button>
+                                            <button type="reset" class="btn btn-primary">Annuler</button>
                                         </div>
                                     </form>
                                 </div>

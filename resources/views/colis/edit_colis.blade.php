@@ -204,7 +204,7 @@
                                     </div>
                                     <div class="modal-footer mt-4">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        <button type="submit" class="btn btn-success">Enregistrer</button>
                                     </div>
                                 </div>
                             </form>

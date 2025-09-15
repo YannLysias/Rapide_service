@@ -96,7 +96,7 @@
         <div class="label">Email : {{ $colis->client->email }}</div>
         <div class="label">
             Agence :
-            @foreach($colis->user->agences as $agence)
+            @foreach($colis->client->agences as $agence)
                 {{ $agence->nom ?? 'N/A' }} ({{ $agence->pays ?? 'N/A' }})
             @endforeach
         </div>
