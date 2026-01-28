@@ -60,9 +60,6 @@
                                                             <a href="#" class="btn btn-sm btn-success" title="Voir les détails">
                                                                 <i class="la la-eye"></i>
                                                             </a>
-                                                            <a href="#" class="btn btn-sm btn-warning" title="Modifier">
-                                                                <i class="la la-edit"></i>
-                                                            </a>
                                                             <a href="{{ route('agence.destroy', $agence->id) }}" class="btn btn-sm btn-danger" title="Supprimer" onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) { document.getElementById('delete-form-{{ $agence->id }}').submit(); }">
                                                                     <i class="la la-trash"></i>
                                                             </a>

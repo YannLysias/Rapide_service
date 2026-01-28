@@ -48,7 +48,6 @@
 														<th>Numéro</th>
 														<th>Nom destinateur</th>
 														<th>Tél destinateur</th>
-														<th>type</th>
 														<th>poid</th>
 														<th>Montant</th>
 														<th>Paiement</th>
@@ -56,14 +55,13 @@
 														<th>Action</th>
 													</tr>
 												</thead>
-												<tbody id="colis-result">
+												<tbody>
                                                 @foreach ($colis as $index => $coli)
 													<tr>
 														<th scope="row">{{$index + 1}}</th>
 														<td>{{ $coli->code_colis}}</td>
 														<td>{{ $coli->destinateur_nom}}</td>
 														<td>{{ $coli->destinateur_telephone}}</td>
-														<td>{{ $coli->type}}</td>
 														<td>{{ $coli->poid}}</td>
 														<td>{{ $coli->montant}} $</td>
 														<td>{{ $coli->paiement}}</td>
