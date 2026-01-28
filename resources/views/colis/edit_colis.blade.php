@@ -83,7 +83,7 @@
                                 <li class="list-group-item"><strong>Nom Expéditeur :</strong> {{ $colis->client->name }} {{ $colis->client->prenom }}</li>
                             </div>
                             <div class="col-md-6">
-                                @foreach($colis->user->agences as $agence)
+                                @foreach($colis->client->agences as $agence)
                                     <li class="list-group-item"><strong>Agence d'expédition : {{$agence->nom ?? 'N/A'}} ({{$agence->pays ?? 'N/A'}})</strong>
                                     </li>
                                 @endforeach

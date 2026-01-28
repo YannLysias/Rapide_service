@@ -130,7 +130,7 @@
             <p>
                 Chez Patrick ETINA<br>
                 📍 Situé en face Nouvelle Pharmacie ADECHINA<br>
-                ☎️ +229 019 596 4338<br>
+                ☎️ +229 019 696 4338<br>
                 ✉️ patricketina20@gmail.com
             </p>
         </div>

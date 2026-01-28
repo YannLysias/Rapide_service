@@ -75,6 +75,13 @@
                                                                 <a href="{{ route('user.user.show', $user->id) }}" class="btn btn-sm btn-success" title="Voir les détails">
                                                                     <i class="la la-eye"></i>
                                                                 </a>
+                                                                <a href="{{ route('user.user.destroy', $user->id) }}" class="btn btn-sm btn-danger" title="Supprimer" onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }">
+                                                                    <i class="la la-trash"></i>
+                                                                </a>
+                                                                <form id="delete-form-{{ $user->id }}" action="{{ route('user.user.destroy', $user->id) }}" method="POST" style="display: none;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                         @endif

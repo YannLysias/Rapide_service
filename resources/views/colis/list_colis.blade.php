@@ -39,9 +39,6 @@
                                         </a>
 									</div>
 									<div class="card-body">
-										<div class="card-sub">
-											colis est envoyer en toutes securité chez Rapide Service
-										</div>
 										<div class="table-responsive">
 											<table class="table table-bordered">
 												<thead>
@@ -72,9 +69,16 @@
 														<td>{{ $coli->paiement}}</td>
 														<td>{{ $coli->statut}}</td>
                                                         <td>
-                                                            <a href="{{ route('colis.list_colis.show', $coli->id) }}" class="btn btn-info btn-sm">
-                                                                Voir
+                                                            <a href="{{ route('colis.list_colis.show', $coli->id) }}" class="btn btn-sm btn-info" title="Voir les détails">
+                                                                <i class="la la-eye"></i><br>
                                                             </a>
+                                                            <a href="{{ route('colis.list_colis.destroy', $coli->id) }}" class="btn btn-sm btn-danger" title="Supprimer" onclick="event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir supprimer ce colis ?')) { document.getElementById('delete-form-{{ $coli->id }}').submit(); }">
+                                                                <i class="la la-trash"></i>
+                                                            </a>
+                                                            <form id="delete-form-{{ $coli->id }}" action="{{ route('colis.list_colis.destroy', $coli->id) }}" method="POST" style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
                                                         </td>
 													</tr>
                                                 @endforeach

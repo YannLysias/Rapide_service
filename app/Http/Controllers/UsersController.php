@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AgenceTransfert;
+use App\Models\Colis;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -98,6 +99,18 @@ public function store(Request $request)
         return redirect('user/user')->with('success', 'Utilisateur ajouté avec succès.');
 
 }
+public function stat()
+{
+    $colisEnregistres = Colis::count();
+    $colisLivres = Colis::where('statut', 'Livré')->count();
+    $colisEnAttente = Colis::where('statut', 'En_attente')->count();
+    $colisEnCours = Colis::where('statut', 'En_cours')->count();
+    $secretaire = User::where('role', 'Secretaire')->count();
+    $clients = User::where('role', 'Client')->count();
+    $agences = AgenceTransfert::count();
+
+    return view('dashboard', compact('colisEnregistres', 'colisLivres', 'colisEnAttente', 'colisEnCours', 'secretaire', 'clients', 'agences'));
+}
 
 
     /**
@@ -130,6 +143,9 @@ public function store(Request $request)
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('user.user.index')->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

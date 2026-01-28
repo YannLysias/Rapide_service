@@ -30,7 +30,7 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">Total de colis</p>
-													<h4 class="card-title">0</h4>
+													<h4 class="card-title">{{ $colisEnregistres }}</h4>
 												</div>
 											</div>
 										</div>
@@ -49,7 +49,7 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">colis en cours</p>
-													<h4 class="card-title">0</h4>
+													<h4 class="card-title">{{ $colisEnCours }}</h4>
 												</div>
 											</div>
 										</div>
@@ -68,7 +68,7 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">Colis livré</p>
-													<h4 class="card-title">0</h4>
+													<h4 class="card-title">{{ $colisLivres }}</h4>
 												</div>
 											</div>
 										</div>
@@ -87,7 +87,7 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">colis en attente</p>
-													<h4 class="card-title">0</h4>
+													<h4 class="card-title">{{ $colisEnAttente }}</h4>
 												</div>
 											</div>
 										</div>

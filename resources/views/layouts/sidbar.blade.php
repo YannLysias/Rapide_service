@@ -68,7 +68,7 @@
 							<a href="{{ route('dashboard') }}">
 								<i class="la la-dashboard"></i>
 								<p>Tableau de Bord</p>
-								<span class="badge badge-count">5</span>
+								<span class="badge badge-count"></span>
 							</a>
 						</li>
                     @if (Auth::user()->role == "Secretaire" || Auth::user()->role === 'Super-admin')
@@ -83,21 +83,21 @@
 							<a href="{{ route('colis.list_colis.index') }}">
 								<i class="la la-truck"></i>
 								<p>Gestion des Colis</p>
-								<span class="badge badge-count">2</span>
+								<span class="badge badge-count"></span>
 							</a>
 						</li>
                         <li class="nav-item {{ request()->routeIs('user.admin.index') ? 'active' : '' }}">
 							<a href="{{ route('user.admin.index') }}">
 								<i class="la la-users"></i>
                                     <p>Secretaire</p>
-								<span class="badge badge-count">2</span>
+								<span class="badge badge-count"></span>
 							</a>
 						</li>
                         <li class="nav-item {{ request()->routeIs('agence.index') ? 'active' : '' }}">
 							<a href="{{ route('agence.index') }}">
 								<i class="la la-newspaper-o"></i>
 								<p>Agences</p>
-								<span class="badge badge-count">5</span>
+								<span class="badge badge-count"></span>
 							</a>
 						</li>
                         <li class="nav-item {{ request()->routeIs('user.user.index') ? 'active' : '' }}">
@@ -106,7 +106,7 @@
 								<p>
                                     Clients
                                 </p>
-								<span class="badge badge-count">2</span>
+								<span class="badge badge-count"></span>
 							</a>
 						</li>
                     @endif

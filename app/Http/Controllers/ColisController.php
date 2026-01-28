@@ -57,11 +57,10 @@ class ColisController extends Controller
             'client_id' => 'required|exists:users,id',
             'agence_transfert_id' => 'required|exists:agences_transfert,id',
             'poid' => 'required|numeric|min:0.1',
-            'type' => 'required|string|max:255',
-            // 'statut' => 'required|in:en_attente,en_cours,livré',
+            'type' => 'nullable|string|max:255',
             'destinateur_nom' => 'required|string|max:255',
-            'destinateur_prenom' => 'required|string|max:255',
-            'destinateur_email' => 'required|string|max:255',
+            'destinateur_prenom' => 'nullable|string|max:255',
+            'destinateur_email' => 'nullable|string|max:255',
             'destinateur_telephone' => 'required|string|max:255',
             'paiement' => 'required|in:payé,non_payé',
         ]);
@@ -168,7 +167,10 @@ class ColisController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $colis = Colis::findOrFail($id);
+        $colis->delete();
+
+        return redirect()->route('colis.list_colis.index')->with('success', 'Colis supprimé avec succès.');
     }
 
     public function imprimer($id)

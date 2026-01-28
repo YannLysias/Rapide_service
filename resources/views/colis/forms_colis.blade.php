@@ -102,7 +102,7 @@
                                                     @enderror
                                                 </div>
                                                     <div class="form-group">
-                                                    <label>Prénom <span style="color:red">*</span></label>
+                                                    <label>Prénom <span style="color:red"></span></label>
                                                     <input type="text" name="destinateur_prenom" class="form-control" value="{{ old('destinateur_prenom') }}" required>
                                                     @error('destinateur_prenom')
                                                         <div class="d-block text-danger">{{$message}}</div>
@@ -135,6 +135,7 @@
                                                     </div>
 
                                                     @error('photo_colis')
+
                                                         <div class="d-block text-danger">{{$message}}</div>
                                                     @enderror
                                                 </div>

@@ -78,6 +78,9 @@ class AgenceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $agence = AgenceTransfert::findOrFail($id);
+        $agence->delete();
+
+        return redirect()->route('agence.index')->with('success', 'Agence supprimée avec succès.');
     }
 }
